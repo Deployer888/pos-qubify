@@ -1,0 +1,99 @@
+.ic-table-money-relatad {
+    padding: 20px 0;
+    color: #000;
+}
+
+.ic-table-money-relatad.text-right {
+    text-align: right;
+}
+
+.ic-table-money-relatad.text-right.ic-table-font-big {
+    font-size: 25px;
+}
+
+.ic-table-td-style {
+    padding: 20px 0;
+    color: #8C8D8E;
+}
+
+.ic-table-th {
+    text-align: left;
+    padding: 20px 0;
+    border-bottom: 1px solid #EBEBEB;
+    border-top: 1px solid #EBEBEB;
+}
+
+.ic-table-th.ic-table-th-text-right {
+    text-align: right;
+}
+
+.ic-table-th.ic-table-th-text-center {
+    text-align: center;
+}
+
+.ic-table-fixed-layout {
+    table-layout: fixed;
+}
+
+.ic-table-tr-td-text {
+    color: #8C8D8E;
+    margin: 0
+}
+
+.ic-invoice-table-heads {
+    padding-bottom: 30px;
+    padding-top: 10px;
+}
+
+.ic-table-td {
+    text-align: left;
+}
+
+.ic-table-td-right {
+    text-align: right;
+}
+
+.ic-table-text-right {
+    padding: 2px;
+    color: #000;
+    text-align: right;
+}
+
+.ic-table-inner-td {
+    padding: 2px;
+    color: #000;
+    margin-bottom: 0;
+}
+
+.ic-top-table-heads {
+    border-bottom: 1px solid #EBEBEB;
+    padding-bottom: 10px;
+}
+
+.ic-table-app-name {
+    text-align: left;
+    font-size: 25px;
+    color: #606770;
+}
+
+.text-right {
+    text-align: right
+}
+
+/* report pdf */
+.ic-main-table {
+    width: 100%;
+}
+
+.ic-table-td {
+    padding: 5px;
+    font-size: 14px;
+}
+
+.ic-custom-date {
+    width: 15%;
+}
+
+.ic-custom-title {
+    width: 25%;
+}

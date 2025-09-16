@@ -1,0 +1,254 @@
+table.dataTable {
+    width: 100% !important;
+}
+
+table.dataTable thead th,
+table.dataTable thead td {
+    border-bottom: none;
+}
+
+table.dataTable.no-footer {
+    border-bottom: none;
+}
+
+.buttons-print,
+.buttons-csv,
+.buttons-excel,
+.buttons-pdf {
+    height: auto !important;
+}
+
+.buttons-create {
+    background-color: #607d8b !important;
+    border: none !important;
+}
+
+#dt-html-builder td {
+    white-space: nowrap;
+    padding: 5px 10px;
+}
+
+#dt-html-builder tr td:last-child ul {
+    padding: 0px;
+}
+
+#dt-html-builder tr td:last-child .dropdown {
+    text-align: right;
+}
+
+#dt-html-builder .dropdown-toggle {
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+#dt-html-builder .dropdown-toggle i {
+    display: inline-block;
+}
+
+.paginate_button .current {
+    height: 40px !important;
+    width: 40px !important;
+    border-radius: 31% !important;
+    text-align: center !important;
+    background: #000 !important;
+    color: #fff !important;
+    position: relative !important;
+    justify-content: center !important;
+    align-self: center !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current,
+.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+    background: #607d8b;
+    color: #fff;
+}
+
+.dataTables_wrapper .dt-buttons a.dt-button {
+    padding: 7px 12px;
+    margin-right: 5px;
+    text-decoration: none;
+    box-shadow: 0 2px 5px rgb(0 0 0 / 16%), 0 2px 10px rgb(0 0 0 / 12%);
+    font-size: 13px;
+}
+
+button.dt-button,
+div.dt-button,
+a.dt-button {
+    background-image: none !important;
+}
+
+button.dt-button:hover:not(.disabled),
+div.dt-button:hover:not(.disabled),
+a.dt-button:hover:not(.disabled) {
+    border: 1px solid #666;
+    background-color: #e0e0e0;
+    background-image: -webkit-linear-gradient(top, #f9f9f9 0%, #e0e0e0 100%);
+    background-image: -moz-linear-gradient(top, #f9f9f9 0%, #e0e0e0 100%);
+    background-image: -ms-linear-gradient(top, #f9f9f9 0%, #e0e0e0 100%);
+    background-image: -o-linear-gradient(top, #f9f9f9 0%, #e0e0e0 100%);
+    background-image: linear-gradient(top, #f9f9f9 0%, #e0e0e0 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, StartColorStr='#f9f9f9', EndColorStr='#e0e0e0');
+}
+
+.dataTables_wrapper .dt-buttons a.dt-button {
+    background-color: #607d8b;
+    color: #fff;
+    padding: 10px 18px;
+    margin-right: 5px;
+    text-decoration: none;
+    box-shadow: 0 2px 5px rgb(0 0 0 / 16%), 0 2px 10px rgb(0 0 0 / 12%);
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -ms-border-radius: 2px;
+    border-radius: 2px;
+    border: 0;
+    font-size: 13px;
+    outline: 0;
+    display: inline-block;
+}
+
+button.dt-button:hover,
+div.dt-button:hover,
+a.dt-button:hover {
+    text-decoration: none;
+}
+
+button.dt-button,
+div.dt-button,
+a.dt-button {
+    background-image: none !important;
+}
+
+button.dt-button,
+div.dt-button,
+a.dt-button {
+    position: relative;
+    display: inline-block;
+    box-sizing: border-box;
+    margin-right: 0.333em;
+    padding: 0.5em 1em;
+    border: 1px solid #999;
+    border-radius: 2px;
+    cursor: pointer;
+    font-size: 0.88em;
+    color: black;
+    white-space: nowrap;
+    overflow: hidden;
+    background-color: #e9e9e9;
+    background-image: -webkit-linear-gradient(top, #fff 0%, #e9e9e9 100%);
+    background-image: -moz-linear-gradient(top, #fff 0%, #e9e9e9 100%);
+    background-image: -ms-linear-gradient(top, #fff 0%, #e9e9e9 100%);
+    background-image: -o-linear-gradient(top, #fff 0%, #e9e9e9 100%);
+    background-image: linear-gradient(top, #fff 0%, #e9e9e9 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, StartColorStr='white', EndColorStr='#e9e9e9');
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    text-decoration: none;
+    outline: none;
+}
+
+button:hover,
+input:hover,
+select:hover,
+a:hover {
+    text-decoration: none;
+}
+
+.buttons-print,
+.buttons-csv,
+.buttons-excel,
+.buttons-pdf {
+    height: auto !important;
+    width: 70px;
+}
+
+.dataTables_wrapper .dt-buttons {
+    float: left;
+}
+
+.dataTables_wrapper {
+    position: relative;
+}
+
+.dataTables_wrapper input[type="search"]:focus,
+.dataTables_wrapper input[type="search"]:active {
+    border-bottom: 2px solid #1f91f3;
+}
+
+div.dataTables_wrapper div.dataTables_filter label {
+    font-weight: normal;
+    white-space: nowrap;
+    text-align: left;
+    font-size: 12px;
+    line-height: 1.42857;
+    color: #414244;
+    display: inline-block;
+    margin-bottom: 0.5rem;
+}
+
+div.dataTables_wrapper div.dataTables_filter input {
+    margin-left: 0.5em;
+    display: inline-block;
+    width: auto;
+}
+
+.dataTables_wrapper input[type="search"] {
+    border-radius: 0;
+    box-shadow: none;
+    border: 0;
+    font-size: 12px;
+    height: 26px;
+    border-bottom: 1px solid #ddd;
+    background-color: transparent;
+    margin: 0 0 8px 0;
+    padding: 0;
+}
+
+.dataTables_wrapper input[type="search"]:focus,
+.dataTables_wrapper input[type="search"]:active {
+    border-bottom: 2px solid #1f91f3;
+    outline: none;
+}
+
+.dataTables_wrapper select:focus,
+.dataTables_wrapper input:active {
+    outline: none;
+}
+
+.dataTables_length {
+    margin-top: 5px;
+}
+
+.dataTables_wrapper .dropdown-toggle::after {
+    display: none;
+}
+
+.dataTables_wrapper .dropdown-toggle {
+    color: #007bff;
+    white-space: nowrap;
+}
+
+#dt-html-builder td:last-child {
+    text-align: right;
+    margin-right: 5px;
+}
+
+#dt-html-builder .dropdown-menu {
+    box-shadow: -6px 7px 9px 0px rgba(0, 0, 0, 0.57);
+}
+
+#dt-html-builder th {
+    text-align: center;
+}
+
+.dataTables_empty {
+    text-align: center !important;
+}
+
+.ic-text-center {
+    text-align: center !important;
+}

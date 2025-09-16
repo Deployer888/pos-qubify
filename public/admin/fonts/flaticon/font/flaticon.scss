@@ -1,0 +1,69 @@
+$flaticon-font: "flaticon";
+
+@font-face {
+    font-family: $flaticon-font;
+    src: url("./flaticon.ttf?ad5cf36c2e12c63994ac3230e81f8ef5") format("truetype"),
+url("./flaticon.woff?ad5cf36c2e12c63994ac3230e81f8ef5") format("woff"),
+url("./flaticon.woff2?ad5cf36c2e12c63994ac3230e81f8ef5") format("woff2"),
+url("./flaticon.eot?ad5cf36c2e12c63994ac3230e81f8ef5#iefix") format("embedded-opentype"),
+url("./flaticon.svg?ad5cf36c2e12c63994ac3230e81f8ef5#flaticon") format("svg");
+}
+
+i[class^="flaticon-"]:before, i[class*=" flaticon-"]:before {
+    font-family: flaticon !important;
+    font-style: normal;
+    font-weight: normal !important;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+$flaticon-map: (
+    "conversation": "\f101",
+    "inventory": "\f102",
+    "new-product": "\f103",
+    "shopping-bag": "\f104",
+    "shopping-bag-1": "\f105",
+    "expenses": "\f106",
+    "dashboard": "\f107",
+    "pamphlet": "\f108",
+    "bill": "\f109",
+    "report": "\f10a",
+    "working": "\f10b",
+);
+
+.flaticon-conversation:before {
+    content: map-get($flaticon-map, "conversation");
+}
+.flaticon-inventory:before {
+    content: map-get($flaticon-map, "inventory");
+}
+.flaticon-new-product:before {
+    content: map-get($flaticon-map, "new-product");
+}
+.flaticon-shopping-bag:before {
+    content: map-get($flaticon-map, "shopping-bag");
+}
+.flaticon-shopping-bag-1:before {
+    content: map-get($flaticon-map, "shopping-bag-1");
+}
+.flaticon-expenses:before {
+    content: map-get($flaticon-map, "expenses");
+}
+.flaticon-dashboard:before {
+    content: map-get($flaticon-map, "dashboard");
+}
+.flaticon-pamphlet:before {
+    content: map-get($flaticon-map, "pamphlet");
+}
+.flaticon-bill:before {
+    content: map-get($flaticon-map, "bill");
+}
+.flaticon-report:before {
+    content: map-get($flaticon-map, "report");
+}
+.flaticon-working:before {
+    content: map-get($flaticon-map, "working");
+}

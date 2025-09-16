@@ -1,0 +1,160 @@
+/* ==============
+  Card
+===================*/
+
+.card {
+    border: none;
+    box-shadow: $shadow;
+    margin-bottom: 24px;
+
+    .card-body {
+        padding: 24px;
+    }
+}
+
+.ic-card-height-same {
+    height: calc(100% - 24px);
+}
+
+@media (min-width: 576px) {
+    .card-columns {
+        -webkit-column-gap: 24px;
+        -moz-column-gap: 24px;
+        column-gap: 24px;
+    }
+}
+
+.card-columns {
+    .card {
+        margin-bottom: 24px;
+    }
+}
+
+.ic-card-head {
+    padding: 30px;
+    background: #FFFFFF;
+    box-shadow: $shadow;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 24px;
+
+    @media (max-width: 1366px) {
+        padding: 20px;
+    }
+
+    @media (max-width: 1199px) {
+        margin-bottom: 24px;
+    }
+
+    .ic-card-icon {
+        font-size: 35px;
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        line-height: 80px;
+        text-align: center;
+        transition: .4s;
+        color: #fff;
+        background: $primary;
+        display: inline-block;
+
+        @media (max-width: 1500px) {
+            font-size: 25px;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            line-height: 70px;
+        }
+    }
+
+    h3 {
+        @media (max-width: 1500px) {
+            font-size: 24px;
+        }
+
+        @media (max-width: 1366px) {
+            font-size: 18px;
+        }
+
+        @media (max-width: 575px) {
+            margin-bottom: 2px;
+        }
+    }
+
+    p {
+        color: $gray-500;
+        margin-bottom: 0;
+
+        @media (max-width: 1500px) {
+            font-size: 12px;
+        }
+    }
+
+    .big-icon {
+        font-size: 100px;
+        color: rgba(36, 105, 92, 0.03);
+        position: absolute;
+        left: -12px;
+        top: -12px;
+    }
+
+    a {
+        color: $primary;
+        font-weight: 600;
+    }
+
+
+    &.secondary {
+        .ic-card-icon {
+            background: $secondary;
+        }
+
+        a {
+            color: $secondary;
+        }
+
+    }
+
+    &.warning {
+        .ic-card-icon {
+            background: $warning;
+        }
+
+        a {
+            color: $warning;
+        }
+    }
+
+    &.danger {
+        .ic-card-icon {
+            background: $danger;
+        }
+
+        a {
+            color: $danger;
+        }
+
+    }
+
+    &.success {
+        .ic-card-icon {
+            background: $success;
+        }
+
+        a {
+            color: $success;
+        }
+    }
+
+    &.info {
+        .ic-card-icon {
+            background: $info;
+        }
+
+        a {
+            color: $info;
+        }
+    }
+
+}

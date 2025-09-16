@@ -2,6 +2,11 @@
 node_modules/
 npm-debug.log
 yarn-error.log
+/public/build
+/nova
+/.nova
+
+
 
 # Laravel 4 specific
 bootstrap/compiled.php
@@ -24,7 +29,50 @@ Homestead.json
 
 /public/build
 /storage/pail
+/storage/framework/cache/*
+/storage/framework/sessions/*
+/storage/framework/views/*
+/storage/logs/*.log
+/storage/temp/
+/storage/public/*
 .env.backup
 .env.production
 .phpactor.json
 auth.json
+
+# IDE files
+.kiro/
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# PHP specific
+composer.phar
+.phpunit.result.cache
+.php_cs.cache
+
+# Testing
+coverage/
+.phpunit.result.cache
+_ide_helper.php
+_ide_helper_models.php
+.phpstorm.meta.php
+
+# Miscellaneous
+*.zip
+*.sql
+*.bak
+*.tmp
+*.orig

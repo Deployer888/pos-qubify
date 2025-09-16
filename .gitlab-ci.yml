@@ -1,0 +1,32 @@
+workflow:
+  rules:
+    - if: $CI_COMMIT_BRANCH == 'customize/car-wash-inventory' || $CI_COMMIT_BRANCH == 'codecanyon/main'
+      when: always
+    - when: never
+
+stages:
+  - deploy-customize/car-wash-inventory
+  - deploy-codecanyon/main
+
+stage-deploy-staging:
+  stage: deploy-customize/car-wash-inventory
+  image: alpine:3.19
+  script:
+    # Connect to the server and run deploy script
+    - apk add --update openssh
+    - chmod 400 $CLANVENT_CUSTOMIZE_KEY
+    - ssh -i $CLANVENT_CUSTOMIZE_KEY -o StrictHostKeyChecking=no -p $CLANVENT_CUSTOMIZE_PORT $CLANVENT_CUSTOMIZE_HOST "cd /home/laravelscript/clanvent-test.laravel-script.com/ && git pull origin customize/car-wash-inventory && composer install --optimize-autoloader && php artisan migrate && php artisan optimize:clear && exit"
+  only:
+    - customize/car-wash-inventory
+
+
+stage-deploy-production:
+  stage: deploy-codecanyon/main
+  image: alpine
+  script:
+    # Connect to the server and run deploy script
+    - apk add --update openssh
+    - chmod 400 $ITCLANPRODUCT_KEY
+    - ssh -i $ITCLANPRODUCT_KEY -o StrictHostKeyChecking=no -p $ITCLANPRODUCT_PORT $ITCLANPRODUCT_HOST "cd /home/itclanproducts/clanvent-app.itclanproducts.com/ && git pull origin codecanyon/main && composer install --optimize-autoloader && php artisan migrate && php artisan optimize:clear && exit"
+  only:
+    - codecanyon/main

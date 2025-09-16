@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,500|Sarabun:400,600,700');
+/*=================== fonts ====================*/
+@import url('https://fonts.googleapis.com/css?family=Karla:400,400i,700');
+
+
+// Color variables
+$white: #ffffff;
+
+$primary: var(--primary-color);
+$secondary: var(--secondary-color);
+$secondary2: #6063a5;
+$success: #42ca7f;
+$info: #38a4f8;
+$warning: #f8b425;
+$danger: #ec4561;
+$dark: #2a3142;
+$muted: #9ca8b3;
+$gray-light: #F4F5FA;
+$hover-bg: #f5f2ff;
+$baseColor: #00033E;
+$dip: #242424;
+$bl: #000;
+$pfont: #a1a1a1;
+$danger: #ec4561;
+
+// Gray Colors
+$gray-100: #f8f9fa;
+$gray-200: #e9ecef;
+$gray-300: #dee2e6;
+$gray-400: #ced4da;
+$gray-500: #adb5bd;
+$gray-600: #6c757d;
+$gray-700: #495057;
+$gray-800: #343a40;
+$gray-900: #212529;
+
+$bg-body: #f8f8fa;
+$left-bar: #fff;
+$topbar-background: #fff;
+$topbar-search-background: #f3f3f9;
+$footer-background: #e9e9ef;
+
+$font-family: 'Roboto',
+sans-serif;
+$font-family-secondary: 'Sarabun',
+sans-serif;
+/*font Variables*/
+$kar: 'Karla',
+sans-serif;
+$shadow: 0px 0px 13px 0px rgba(236, 236, 241, 0.44);
+
+$base-font: 16px;
+$form-font: 14px;
+
+// Width variables
+$width: 100%;
+
+// Height variables
+$height: 100%;
+
+$leftbar-menu-color: #555582;
+$leftbar-menu-hover-color: #b4c9de;
+$leftbar-menu-active-color: #b4c9de;
+
+
+.ic-main-color {
+    color: $primary;
+}
+
+// Mixins
+@mixin transition($property: all, $duration: 300ms, $animate: linear, $delay:0s) {
+    transition: $property $duration $animate $delay;
+}
+
+
+// Placeholder Mixins
+@mixin placeholder {
+    &.placeholder {
+        @content;
+    }
+
+    &:-moz-placeholder {
+        @content;
+    }
+
+    &::-moz-placeholder {
+        @content;
+    }
+
+    &::-webkit-input-placeholder {
+        @content;
+    }
+}

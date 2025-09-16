@@ -1,0 +1,38 @@
+@media screen and (min-width: 1200px) and (max-width:1700px) {
+    .container {
+        max-width: 960px;
+    }
+
+    .login_form {
+        margin-right: 0px;
+    }
+}
+
+@media (max-width:1199px) {
+    .form_box .row {
+        margin-right: 0px;
+    }
+}
+
+@media (max-width:991px) {
+    .container {
+        max-width: 100%;
+    }
+}
+
+@media (max-width:767px) {
+    .ic_main_form_inner .form_img {
+        display: none;
+    }
+}
+
+
+@media (max-width:480px) {
+    .ic_main_form_inner .form_box .login_form .form-group.remember a {
+        font-size: 15px;
+    }
+
+    .ic_main_form_inner .form_box .login_form .form-group.remember label {
+        font-size: 15px;
+    }
+}

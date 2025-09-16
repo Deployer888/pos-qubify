@@ -1,0 +1,31 @@
+/* ==============
+  according
+===================*/
+.ic-collapse {
+    padding: 10px 20px;
+    background-color: #F7F7F7;
+    cursor: pointer;
+    position: relative;
+
+    i {
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%) rotate(0deg);
+        -webkit-transition: .6s;
+        -moz-transition: .6s;
+        -o-transition: .6s;
+        transition: .6s;
+    }
+
+    &.collapsed {
+        i {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%) rotate(270deg);
+        }
+    }
+
+
+}
