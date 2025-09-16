@@ -6,6 +6,11 @@ yarn-error.log
 /nova
 /.nova
 
+Mobile Apps/
+database/seeders/data/
+public/install/images/Thumbs.db
+
+
 
 
 # Laravel 4 specific

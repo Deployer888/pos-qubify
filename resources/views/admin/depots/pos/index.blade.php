@@ -672,7 +672,7 @@
         color: var(--primary-blue);
         margin-bottom: 0.5rem;
         line-height: 1.3;
-        min-height: 2.6rem;
+        /* min-height: 2.6rem; */
         display: -webkit-box;
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
@@ -1191,7 +1191,14 @@
                     </div>
                 </div>
                 <div class="product-content">
-                    <div class="product-name">{{ $stock['product_name'] }}</div>
+                    <div class="d-flex align-items-center justify-content-between mb-2">
+                        <div class="product-name">{{ $stock['product_name'] }}</div>
+                        <img src="{{ env('IMG_URL').'storage/depot_barcodes/'.$stock['barcode_image'] }}" 
+                            alt="Barcode" 
+                            class="barcode-image" 
+                            height="15"
+                            style="max-width: 100px;">
+                    </div>
                     @if(isset($stock['barcode']) && $stock['barcode'])
                     <div class="product-code">{{ $stock['barcode'] }}</div>
                     @endif
@@ -1264,7 +1271,7 @@
                         </button>
                         <input type="number" id="modal-quantity" class="form-control mx-3" 
                                style="width: 120px; text-align: center;" 
-                               min="0.01" step="0.01" value="1">
+                               min="1" step="1" value="1">
                         <button type="button" class="qty-btn" onclick="increaseModalQty()">
                             <i class="mdi mdi-plus"></i>
                         </button>
@@ -1301,7 +1308,7 @@
                                     <span class="input-group-text">₹</span>
                                 </div>
                                 <input type="number" class="form-control" id="received-amount" 
-                                       step="0.01" placeholder="0.00" oninput="calculateChange()">
+                                       step="1" placeholder="0.00" oninput="calculateChange()">
                             </div>
                         </div>
                         <div class="form-group">
@@ -1482,67 +1489,130 @@ function initQuagga() {
             type: "LiveStream",
             target: document.querySelector('#scanner-video'),
             constraints: {
-                width: 640,
-                height: 480,
-                facingMode: "environment"
+                width: { min: 640, ideal: 1280, max: 1920 },
+                height: { min: 480, ideal: 720, max: 1080 },
+                facingMode: "environment",
+                aspectRatio: { min: 1, max: 2 }
             },
         },
+        locator: {
+            patchSize: "medium",
+            halfSample: false
+        },
+        numOfWorkers: 2,
+        frequency: 10,
         decoder: {
             readers: [
                 "code_128_reader",
                 "ean_reader",
-                "ean_8_reader",
+                "ean_8_reader", 
                 "code_39_reader",
                 "code_39_vin_reader",
                 "codabar_reader",
                 "upc_reader",
                 "upc_e_reader",
                 "i2of5_reader"
-            ]
+            ],
+            debug: {
+                showCanvas: false,
+                showPatches: false,
+                showFoundPatches: false,
+                showSkeleton: false,
+                showLabels: false,
+                showPatchLabels: false,
+                showRemainingPatchLabels: false,
+                boxFromPatches: {
+                    showTransformed: false,
+                    showTransformedBox: false,
+                    showBB: false
+                }
+            }
         },
-        locate: true,
-        locator: {
-            halfSample: true,
-            patchSize: "medium",
-        },
+        locate: true
     }, function(err) {
         if (err) {
             console.error('Quagga initialization error:', err);
-            updateScannerStatus('Scanner initialization failed', 'error');
+            updateScannerStatus('Scanner initialization failed. Please check camera permissions.', 'error');
             return;
         }
         
         Quagga.start();
         scannerActive = true;
-        updateScannerStatus('Scanner ready - Position barcode in the frame', 'success');
+        updateScannerStatus('Scanner ready - Position barcode clearly in the frame', 'success');
     });
 
     // Listen for successful barcode detection
     Quagga.onDetected(function(data) {
-        const barcode = data.codeResult.code;
+        if (!scannerActive) return;
+        
+        const barcode = data.codeResult.code.trim();
+        const confidence = data.codeResult.format;
+        
+        console.log('Detected barcode:', barcode, 'Format:', confidence);
+        
+        // Stop scanning temporarily to prevent multiple detections
+        scannerActive = false;
         handleBarcodeDetection(barcode);
+        
+        // Re-enable scanning after 2 seconds
+        setTimeout(() => {
+            if (document.querySelector('#barcodeScanner.show')) {
+                scannerActive = true;
+            }
+        }, 2000);
     });
 }
 
 function handleBarcodeDetection(barcode) {
-    // Find product by barcode
-    const product = stocks.find(stock => stock.barcode === barcode);
+    console.log('Processing barcode:', barcode);
+    updateScannerStatus(`Scanning: ${barcode}`, 'success');
+    
+    // Find product by barcode - try exact match first, then partial match
+    let product = stocks.find(stock => 
+        stock.barcode && stock.barcode.toString().trim() === barcode.toString().trim()
+    );
+    
+    // If no exact match, try case-insensitive match
+    if (!product) {
+        product = stocks.find(stock => 
+            stock.barcode && stock.barcode.toString().toLowerCase().trim() === barcode.toString().toLowerCase().trim()
+        );
+    }
+    
+    // If still no match, try partial match for longer barcodes
+    if (!product && barcode.length > 8) {
+        product = stocks.find(stock => 
+            stock.barcode && (
+                stock.barcode.toString().includes(barcode.toString()) ||
+                barcode.toString().includes(stock.barcode.toString())
+            )
+        );
+    }
     
     if (product) {
-        updateScannerStatus(`Product found: ${product.product_name}`, 'success');
+        updateScannerStatus(`✓ Found: ${product.product_name}`, 'success');
+        
+        // Vibrate if supported
+        if (navigator.vibrate) {
+            navigator.vibrate(200);
+        }
         
         // Close scanner and add to cart
         setTimeout(() => {
             closeBarcodeScanner();
-            addToCartDirectly(product.id, 1); // Add 1 quantity by default
+            addToCartDirectly(product.id, 1);
         }, 1500);
         
     } else {
-        updateScannerStatus(`Product not found for barcode: ${barcode}`, 'error');
+        updateScannerStatus(`❌ Product not found for barcode: ${barcode}`, 'error');
+        console.log('Available barcodes in stock:', stocks.map(s => s.barcode).filter(b => b));
         
         // Continue scanning after 2 seconds
         setTimeout(() => {
-            updateScannerStatus('Continue scanning...', 'success');
+            if (document.querySelector('#barcodeScanner.show')) {
+                updateScannerStatus('Continue scanning...', 'success');
+                scannerActive = true;
+            }
         }, 2000);
     }
 }
@@ -1557,11 +1627,16 @@ function addToCartDirectly(stockId, quantity = 1) {
     const price = stock.customer_price;
     const existingItem = cart.find(item => item.stock_id === stockId);
     
+    // Round quantity to avoid floating point errors
+    const step = stock.measurement_unit === 'Kg' || stock.measurement_unit === 'Ltr' ? 1 : 1;
+    const roundedQuantity = Math.round(quantity / step) * step;
+    const finalQuantity = parseFloat(roundedQuantity.toFixed(2));
+    
     if (existingItem) {
-        const newQuantity = existingItem.quantity + quantity;
+        const newQuantity = existingItem.quantity + finalQuantity;
         if (newQuantity <= stock.current_stock) {
-            existingItem.quantity = newQuantity;
-            existingItem.total = newQuantity * price;
+            existingItem.quantity = parseFloat(newQuantity.toFixed(2));
+            existingItem.total = parseFloat((existingItem.quantity * price).toFixed(2));
         } else {
             alert(`Cannot add more. Maximum available stock: ${stock.current_stock}`);
             return;
@@ -1570,10 +1645,10 @@ function addToCartDirectly(stockId, quantity = 1) {
         cart.push({
             stock_id: stockId,
             name: stock.product_name,
-            quantity: quantity,
+            quantity: finalQuantity,
             price: price,
             unit: stock.measurement_unit,
-            total: quantity * price,
+            total: parseFloat((finalQuantity * price).toFixed(2)),
             max_stock: stock.current_stock
         });
     }
@@ -1737,7 +1812,7 @@ function addToCart(stockId) {
     $('#modal-product-name').text(stock.product_name);
     $('#modal-available-stock').text(`${stock.current_stock} ${stock.measurement_unit}`);
     $('#modal-customer-price').text(`₹${stock.customer_price.toFixed(2)}`);
-    $('#modal-quantity').val(1).attr('max', stock.current_stock).attr('step', stock.measurement_unit === 'Kg' || stock.measurement_unit === 'Ltr' ? '0.01' : '1');
+    $('#modal-quantity').val(1).attr('max', stock.current_stock).attr('step', stock.measurement_unit === 'Kg' || stock.measurement_unit === 'Ltr' ? '1' : '1');
     
     updateModalTotal();
     $('#quantityModal').modal('show');
@@ -1791,17 +1866,23 @@ function confirmAddToCart() {
     const price = stock.customer_price;
     const existingItem = cart.find(item => item.stock_id === stockId);
     
+    // Round quantity to avoid floating point errors
+    const step = stock.measurement_unit === 'Kg' || stock.measurement_unit === 'Ltr' ? 1 : 1;
+    const roundedQuantity = Math.round(quantity / step) * step;
+    const finalQuantity = parseFloat(roundedQuantity.toFixed(2));
+    const total = parseFloat((finalQuantity * price).toFixed(2));
+    
     if (existingItem) {
-        existingItem.quantity = quantity;
-        existingItem.total = quantity * price;
+        existingItem.quantity = finalQuantity;
+        existingItem.total = total;
     } else {
         cart.push({
             stock_id: stockId,
             name: stock.product_name,
-            quantity: quantity,
+            quantity: finalQuantity,
             price: price,
             unit: stock.measurement_unit,
-            total: quantity * price,
+            total: total,
             max_stock: stock.current_stock
         });
     }
@@ -1820,8 +1901,11 @@ function updateItemQuantity(stockId, newQuantity) {
     
     if (!item || newQuantity <= 0 || newQuantity > item.max_stock) return;
     
-    item.quantity = newQuantity;
-    item.total = newQuantity * item.price;
+    // Round to 2 decimal places to avoid floating point errors
+    const step = item.unit === 'Kg' || item.unit === 'Ltr' ? 1 : 1;
+    item.quantity = Math.round(newQuantity / step) * step;
+    item.quantity = parseFloat(item.quantity.toFixed(2));
+    item.total = parseFloat((item.quantity * item.price).toFixed(2));
     updateCartDisplay();
 }
 
@@ -1850,14 +1934,14 @@ function updateCartDisplay() {
                     </div>
                     <div class="cart-item-controls">
                         <div class="qty-controls">
-                            <button class="qty-btn" onclick="updateItemQuantity(${item.stock_id}, ${item.quantity - (item.unit === 'Kg' || item.unit === 'Ltr' ? 0.01 : 1)})">
+                            <button class="qty-btn" onclick="updateItemQuantity(${item.stock_id}, ${item.quantity - (item.unit === 'Kg' || item.unit === 'Ltr' ? 1 : 1)})">
                                 <i class="mdi mdi-minus"></i>
                             </button>
-                            <input type="number" class="qty-input" value="${item.quantity}" 
+                            <input type="number" class="qty-input" value="${item.unit === 'Kg' || item.unit === 'Ltr' ? item.quantity.toFixed(2) : item.quantity}" 
                                    onchange="updateItemQuantity(${item.stock_id}, parseFloat(this.value))" 
-                                   min="0.01" step="${item.unit === 'Kg' || item.unit === 'Ltr' ? '0.01' : '1'}" 
+                                   min="1" step="${item.unit === 'Kg' || item.unit === 'Ltr' ? '1' : '1'}" 
                                    max="${item.max_stock}">
-                            <button class="qty-btn" onclick="updateItemQuantity(${item.stock_id}, ${item.quantity + (item.unit === 'Kg' || item.unit === 'Ltr' ? 0.01 : 1)})">
+                            <button class="qty-btn" onclick="updateItemQuantity(${item.stock_id}, ${item.quantity + (item.unit === 'Kg' || item.unit === 'Ltr' ? 1 : 1)})">
                                 <i class="mdi mdi-plus"></i>
                             </button>
                         </div>

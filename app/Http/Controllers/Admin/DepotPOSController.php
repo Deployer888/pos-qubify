@@ -34,7 +34,8 @@ class DepotPOSController extends Controller
                     'price' => (float)$stock->price,
                     'customer_price' => (float)$stock->customer_price,
                     'measurement_unit' => $stock->measurement_unit,
-                    'barcode' => $stock->barcode
+                    'barcode' => $stock->barcode,
+                    'barcode_image' => $stock->barcode_image
                 ];
             });
 
