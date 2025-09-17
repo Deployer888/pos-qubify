@@ -707,7 +707,7 @@
                         <i class="fas fa-hand-holding"></i>
                         Recent Distributions
                     </div>
-                    <a href="#" class="view-all-btn">
+                    <a href="{{ route('admin.depots.invoices.index') }}" class="view-all-btn">
                         <i class="fas fa-eye"></i> View All
                     </a>
                 </div>
@@ -747,9 +747,9 @@
                         <i class="fas fa-users"></i>
                         New Beneficiaries
                     </div>
-                    <a href="#" class="view-all-btn">
+                    {{-- <a href="{{ route('admin.depots.customers.index') }}" class="view-all-btn">
                         <i class="fas fa-eye"></i> View All
-                    </a>
+                    </a> --}}
                 </div>
                 @if(isset($stats['recent_customers']) && $stats['recent_customers']->count() > 0)
                     <table class="activity-table">

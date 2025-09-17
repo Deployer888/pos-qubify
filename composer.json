@@ -10,7 +10,7 @@
     "require": {
         "php": "^8.2",
         "ext-curl": "*",
-        "barryvdh/laravel-dompdf": "^2.1.1",
+        "barryvdh/laravel-dompdf": "^2.2",
         "geo-sot/laravel-env-editor": "^3.1.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "laracasts/flash": "^3.2",
@@ -25,7 +25,8 @@
         "spatie/laravel-permission": "^6.7.0",
         "stripe/stripe-php": "^7.100",
         "tymon/jwt-auth": "^2.1.1",
-        "yajra/laravel-datatables": "^11.0.0"
+        "yajra/laravel-datatables": "^11.0.0",
+        "yajra/laravel-datatables-oracle": "^11.1"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.7",

@@ -17,7 +17,9 @@ class DepotStock extends Model
         'measurement_unit',
         'current_stock',
         'price',
-        'customer_price'
+        'customer_price',
+        'barcode',
+        'barcode_image'
     ];
 
     protected $casts = [

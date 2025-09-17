@@ -13,7 +13,7 @@ use App\Http\Controllers\Admin\Purchase\PurchaseReceiveController;
 use App\Http\Controllers\Admin\DepotController;
 use App\Http\Controllers\Admin\DepotStockController;
 use App\Http\Controllers\Admin\DepotCustomerController;
-use App\Http\Controllers\Admin\DepotPOSController;
+use App\Http\Controllers\Admin\{DepotPOSController, DepotInvoiceController, DepotDashboardController};
 
 Route::prefix('admin')->as('admin.')->middleware(['auth', 'isInstalled'])->group(function () {
     Route::get('depots/get-cities/{state}', [DepotController::class, 'getCities'])->name('depots.get-cities');
@@ -44,6 +44,38 @@ Route::get('/admin/depots/dashboard/regions', [DepotDashboardController::class, 
 Route::get('/admin/depots/dashboard/sales-data', [DepotDashboardController::class, 'getMonthlySalesData'])
     ->name('admin.depots.dashboard.sales-data');
 
+// Depot Invoices
+Route::get('/admin/depots/invoices', [DepotInvoiceController::class, 'index'])->name('admin.depots.invoices.index');
+Route::get('/admin/depots/invoices/daily-report', [DepotInvoiceController::class, 'dailyReport'])->name('admin.depots.invoices.daily-report');
+Route::get('/admin/depots/invoices/export', [DepotInvoiceController::class, 'export'])->name('admin.depots.invoices.export');
+Route::post('/admin/depots/invoices/export', [DepotInvoiceController::class, 'export'])->name('admin.depots.invoices.export');
+Route::get('/admin/depots/{depot}/invoices/analytics', [DepotInvoiceController::class, 'depotAnalytics'])->name('admin.depots.invoices.analytics');
+Route::get('/admin/depots/invoices/{invoice}', [DepotInvoiceController::class, 'show'])->name('admin.depots.invoices.show');
+Route::get('/admin/depots/invoices/{invoice}/print', [DepotInvoiceController::class, 'print'])->name('admin.depots.invoices.print');
+Route::prefix('admin')->middleware(['auth'])->group(function () {
+    
+    // Depot Invoices Routes
+    Route::prefix('depots/invoices')->name('admin.depots.invoices.')->group(function () {
+        
+        // DataTables data route
+        Route::get('/datatables', [DepotInvoiceController::class, 'getDataTablesData'])->name('datatables');
+        
+        // Export routes
+        Route::get('/export', [DepotInvoiceController::class, 'export'])->name('export');
+        Route::get('/export-pdf', [DepotInvoiceController::class, 'exportPDF'])->name('export.pdf');
+        Route::get('/export-csv', [DepotInvoiceController::class, 'exportCSV'])->name('export.csv');
+        
+        // Individual invoice routes
+        Route::get('/{id}', [DepotInvoiceController::class, 'show'])->name('show');
+        Route::get('/{id}/print', [DepotInvoiceController::class, 'print'])->name('print');
+        
+        // Reports
+        Route::get('/reports/daily', [DepotInvoiceController::class, 'dailyReport'])->name('daily-report');
+        
+    });
+    
+});
+
 Route::namespace('Admin')->prefix('admin')->as('admin.')->middleware(['auth', 'isInstalled'])->group(function () {
 
 
@@ -54,11 +86,13 @@ Route::namespace('Admin')->prefix('admin')->as('admin.')->middleware(['auth', 'i
     // DEPOTS
     Route::resource('depots', DepotController::class);
     
+    
+    
     // DEPOT DASHBOARD - Enhanced security with custom middleware
     Route::middleware(['depot.dashboard'])->group(function () {
-        Route::get('depot-dashboard', 'DepotDashboardController@index')->name('depot-dashboard.index');
-        Route::get('depot-dashboard/refresh', 'DepotDashboardController@refreshData')->name('depot-dashboard.refresh');
-        Route::get('depot-dashboard/export', 'DepotDashboardController@exportData')->name('depot-dashboard.export');
+        Route::get('depot-dashboard', [DepotDashboardController::class, 'index'])->name('depot-dashboard.index');
+        Route::get('depot-dashboard/refresh', [DepotDashboardController::class, 'refreshData'])->name('depot-dashboard.refresh');
+        Route::get('depot-dashboard/export', [DepotDashboardController::class, 'exportData'])->name('depot-dashboard.export');
     });
     
     // Depot Stocks
@@ -141,10 +175,10 @@ Route::namespace('Admin')->prefix('admin')->as('admin.')->middleware(['auth', 'i
     Route::resource('expenses', Expenses\ExpensesController::class);
     Route::delete('expenses/file/delete/{file_id}', 'Expenses\ExpensesController@deleteFile')->name('expenses.deleteFile');
     Route::post('expenses/import', 'Expenses\ExpensesController@import')->name('expenses.import');
-    // WithDrawal
-    Route::resource('withdrawals', 'Withdraw\WithdrawalController');
-    Route::get('withdrawals/download/{id}', 'Withdraw\WithdrawalController@download')->name('withdrawals.download');
-    Route::get('withdrawals-print/{id}', 'Withdraw\WithdrawalController@print')->name('withdrawals.print');
+    // WithDrawal - Commented out due to missing controller
+    // Route::resource('withdrawals', 'Withdraw\WithdrawalController');
+    // Route::get('withdrawals/download/{id}', 'Withdraw\WithdrawalController@download')->name('withdrawals.download');
+    // Route::get('withdrawals-print/{id}', 'Withdraw\WithdrawalController@print')->name('withdrawals.print');
 
     // INVOICE
     Route::resource('invoices', 'Invoice\InvoicesController');

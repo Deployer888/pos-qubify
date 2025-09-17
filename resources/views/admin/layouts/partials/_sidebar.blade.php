@@ -65,8 +65,8 @@
 
                             @if (auth()->user()->hasRole('Super Admin') || auth()->user()->can('Access Depot POS'))
                                 <li>
-                                    <a href="{{ route('admin.depots.index') }}">
-                                        <i class="mdi mdi-circle-medium"></i>POS System
+                                    <a href="{{ route('admin.depots.invoices.index') }}">
+                                        <i class="mdi mdi-circle-medium"></i>Invoices
                                     </a>
                                 </li>
                             @endif
