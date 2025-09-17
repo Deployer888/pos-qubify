@@ -350,7 +350,7 @@
                             <td>
                                 <div class="depot-info">
                                     <div class="d-flex align-items-center mb-1">
-                                        <span class="badge-depot mr-2">{{ $invoice->depot->depot_type }}</span>
+                                        <span class="badge-depot mr-2">{{ $invoice->depot->depot_type .', '. $invoice->depot->address}}</span>
                                     </div>
                                     <div class="text-muted small">
                                         <i class="fas fa-map-marker-alt mr-1"></i>
@@ -662,12 +662,5 @@ function exportAllData() {
 function downloadPDF(invoiceId) {
     window.open(`{{ url('admin/depots/invoices') }}/${invoiceId}/print?format=pdf`, '_blank');
 }
-
-// Auto-refresh table every 5 minutes (optional)
-setInterval(function() {
-    if (invoicesTable && !$('#invoicesTable_processing').is(':visible')) {
-        invoicesTable.ajax.reload(null, false);
-    }
-}, 300000); // 5 minutes
 </script>
 @endpush

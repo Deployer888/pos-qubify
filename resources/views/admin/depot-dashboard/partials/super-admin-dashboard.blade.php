@@ -1024,14 +1024,13 @@
                 <i class="fas fa-chart-bar"></i>
                 System Statistics
             </div>
-            
             <div class="stats-matrix">
                 <div class="stat-cell">
                     <div class="stat-value">{{ isset($dashboardData['total_customers']) ? number_format($dashboardData['total_customers']) : '0' }}</div>
                     <div class="stat-label">Total Customers</div>
                 </div>
                 <div class="stat-cell">
-                    <div class="stat-value">{{ isset($dashboardData['total_stock_items']) ? number_format($dashboardData['total_stock_items']) : '0' }}</div>
+                    <div class="stat-value">{{ isset($dashboardData['total_items']) ? number_format($dashboardData['total_items']) : '0' }}</div>
                     <div class="stat-label">Stock Items</div>
                 </div>
                 <div class="stat-cell">

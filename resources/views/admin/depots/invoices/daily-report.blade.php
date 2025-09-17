@@ -240,8 +240,32 @@
                         @forelse($invoices as $invoice)
                         <tr>
                             <td>{{ $invoice->invoice_no }}</td>
-                            <td>{{ $invoice->created_at->format('H:i:s') }}</td>
-                            <td>{{ $invoice->depot->name }}</td>
+                            <td>
+                                <div class="text-muted small">
+                                    <i class="fas fa-calendar-alt mr-1"></i>
+                                    {{ $invoice->created_at->format('d M, Y') }}
+                                    <span class="mx-1">•</span>
+                                    <i class="fas fa-clock mr-1"></i>
+                                    {{ $invoice->created_at->format('h:i A') }}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="depot-info">
+                                    <div class="d-flex align-items-center mb-1">
+                                        <span class="badge-depot mr-2">{{ $invoice->depot->depot_type .', '. $invoice->depot->address}}</span>
+                                    </div>
+                                    <div class="text-muted small">
+                                        <i class="fas fa-map-marker-alt mr-1"></i>
+                                        {{ $invoice->depot->city }}
+                                    </div>
+                                    @if($invoice->depot->user)
+                                    <div class="text-muted small">
+                                        <i class="fas fa-user-tie mr-1"></i>
+                                        {{ $invoice->depot->user->name }}
+                                    </div>
+                                    @endif
+                                </div>
+                            </td>
                             <td>
                                 {{ $invoice->customer->name }}
                                 <small class="d-block text-muted">{{ $invoice->customer->family_id }}</small>

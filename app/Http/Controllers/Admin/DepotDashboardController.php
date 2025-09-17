@@ -324,13 +324,19 @@ class DepotDashboardController extends Controller
             $criticalAlerts = $this->generateCriticalAlerts();
             $additionalStats = $this->getAdditionalStatistics();
             $chartData = $this->generateChartData();
-
+            $totalCustomers = DepotCustomer::count();
+            $totalItems = DepotStock::count();
+            $totalSales = DepotSale::count();
+            // dd($totalCustomers);
             return [
                 // Basic statistics
                 'total_depots' => (int) $depotStats->total_depots,
                 'active_depots' => (int) $depotStats->active_depots,
                 'inactive_depots' => (int) $depotStats->inactive_depots,
                 'depot_managers' => (int) $depotStats->depot_managers,
+                'total_customers' => (int) $totalCustomers,
+                'total_items' => (int) $totalItems,
+                'total_sales' => (int) $totalSales,
                 
                 // Revenue metrics with proper formatting
                 'month_revenue' => $currentMonthRevenue,
@@ -351,9 +357,7 @@ class DepotDashboardController extends Controller
                 
                 // Additional data
                 'critical_alerts' => $criticalAlerts,
-                'total_customers' => $additionalStats['total_customers'],
                 'total_stock_items' => $additionalStats['total_stock_items'],
-                'total_sales' => $additionalStats['total_sales'],
                 
                 // Chart data
                 'revenue_labels' => $chartData['revenue_labels'],

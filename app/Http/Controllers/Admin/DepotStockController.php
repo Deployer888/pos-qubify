@@ -71,6 +71,15 @@ class DepotStockController extends Controller
                 if ($stock->depot_id !== $depot->id) {
                     return back()->withErrors(['stock_id' => 'Invalid stock item for this depot.']);
                 }
+
+                if($stock->barcode === null || $stock->barcode_image === null) {
+                    // Generate unique barcode for this stock
+                    $stock->barcode = $this->generateUniqueBarcode();
+                    
+                    // Generate and save barcode image
+                    $this->generateBarcodeImage($stock);
+
+                }
                 
                 // Update prices
                 $stock->price = $validated['price'];
