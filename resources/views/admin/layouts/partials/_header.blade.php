@@ -75,12 +75,15 @@
 
             </li>
             <li class="dropdown notification-list list-inline-item d-md-inline-block">
-                <a class="btn btn-outline-primary ic-pos-button-header" href="{{ route('admin.invoices.create') }}">
+                {{-- <a class="btn btn-outline-primary ic-pos-button-header" href="{{ route('admin.invoices.create') }}">
+                    <i class="mdi mdi-cart-outline"></i> {{ __('custom.pos') }}
+                </a> --}}
+                <a class="btn btn-outline-primary ic-pos-button-header" href="{{ route('admin.depot-pos') }}">
                     <i class="mdi mdi-cart-outline"></i> {{ __('custom.pos') }}
                 </a>
             </li>
             <!-- notification -->
-            <li class="dropdown notification-list list-inline-item">
+            {{-- <li class="dropdown notification-list list-inline-item">
                 <a class="nav-link dropdown-toggle arrow-none" data-toggle="dropdown" href="#" role="button"
                     aria-haspopup="false" aria-expanded="false">
                     <i class="mdi mdi-cart-outline"></i>
@@ -120,7 +123,7 @@
                         View all <i class="fi-arrow-right"></i>
                     </a>
                 </div>
-            </li>
+            </li> --}}
             <!-- notification -->
             <li class="dropdown notification-list list-inline-item">
                 <a class="nav-link dropdown-toggle arrow-none" data-toggle="dropdown" href="#" role="button"
@@ -177,11 +180,11 @@
                 </div>
             </li>
             <!-- sync-->
-            <li class="dropdown notification-list list-inline-item d-none d-md-inline-block">
+            {{-- <li class="dropdown notification-list list-inline-item d-none d-md-inline-block">
                 <a class="nav-link" href="/change-layout">
                     <i class="fas fa-align-justify"></i>
                 </a>
-            </li>
+            </li> --}}
             <!-- full screen -->
             <li class="dropdown notification-list d-none d-md-block">
                 <a class="nav-link" href="#" id="btn-fullscreen">

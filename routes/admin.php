@@ -115,6 +115,9 @@ Route::namespace('Admin')->prefix('admin')->as('admin.')->middleware(['auth', 'i
         Route::post('/import', [DepotCustomerController::class, 'import'])->name('import');
     });
 
+    // Depot POS Selection
+    Route::get('/depot-pos', [DepotPOSController::class, 'selectDepot'])->name('depot-pos');
+
     // Depot POS
     Route::prefix('depots/{depot}/pos')->name('depots.pos.')->group(function () {
         Route::get('/', [DepotPOSController::class, 'index'])->name('index');

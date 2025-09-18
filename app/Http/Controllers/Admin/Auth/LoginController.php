@@ -35,7 +35,7 @@ class LoginController extends Controller
         if (auth()->attempt($credentials, $request->has('remember'))) {
             // Admin user
             // if (auth()->user()->user_type == User::USER_TYPE_SYSTEM_ADMIN) {
-            return  redirect()->route('admin.dashboard');
+            return  redirect()->route('admin.depot-dashboard.index');
             // }
 
             return redirect('/');

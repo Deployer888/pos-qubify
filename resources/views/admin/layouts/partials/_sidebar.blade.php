@@ -8,7 +8,7 @@
                 <li class="menu-title">{{ __('custom.main') }}</li>
                 @can('Dashboard')
                     <li>
-                        <a href="{{ route('admin.dashboard') }}" class="">
+                        <a href="{{ route('admin.depot-dashboard.index') }}" class="">
                             <i class="flaticon-dashboard"></i><span> {{ __('custom.dashboard') }} </span>
                         </a>
                     </li>
@@ -102,7 +102,7 @@
                     </li>
                 @endcanany
 
-                @can('Warehouse')
+                {{-- @can('Warehouse')
                     <li class="{{ request()->is('admin/warehouses/*') ? 'mm-active' : '' }}">
                         <a href="{{ route('admin.warehouses.index') }}"
                             class="{{ request()->is('admin/warehouses/*') ? 'mm-active' : '' }}">
@@ -397,7 +397,7 @@
 
                         </ul>
                     </li>
-                @endcan
+                @endcan --}}
 
                 @can('Settings')
                     {{--                <li> --}}
