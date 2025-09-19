@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\Purchase\PurchaseReceiveController;
 use App\Http\Controllers\Admin\DepotController;
 use App\Http\Controllers\Admin\DepotStockController;
 use App\Http\Controllers\Admin\DepotCustomerController;
+use App\Http\Controllers\Admin\BeneficiariesController;
 use App\Http\Controllers\Admin\{DepotPOSController, DepotInvoiceController, DepotDashboardController};
 
 Route::prefix('admin')->as('admin.')->middleware(['auth', 'isInstalled'])->group(function () {
@@ -114,6 +115,9 @@ Route::namespace('Admin')->prefix('admin')->as('admin.')->middleware(['auth', 'i
         Route::get('/import', [DepotCustomerController::class, 'importForm'])->name('import-form');
         Route::post('/import', [DepotCustomerController::class, 'import'])->name('import');
     });
+
+    // Beneficiaries (Cross-depot customer management)
+    Route::resource('beneficiaries', 'BeneficiariesController');
 
     // Depot POS Selection
     Route::get('/depot-pos', [DepotPOSController::class, 'selectDepot'])->name('depot-pos');

@@ -73,6 +73,16 @@
                         </ul>
                     </li>
                 @endif
+                
+                @if (auth()->user()->hasRole('Super Admin') || auth()->user()->can('Manage Depot Customers'))
+                    <li class="{{ request()->is('admin/beneficiaries*') ? 'mm-active' : '' }}">
+                        <a href="{{ route('admin.beneficiaries.index') }}" class="">
+                            <i class="mdi mdi-account-group"></i>
+                            <span>Beneficiaries</span>
+                        </a>
+                    </li>
+                @endif
+                
                 @canany(['User', 'Role'])
                     <li>
                         <a href="#" class=""><i class="flaticon-working"></i><span>
